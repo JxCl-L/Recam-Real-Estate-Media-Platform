@@ -11,4 +11,12 @@
     <ProjectReference Include="../RECAM.Models/RECAM.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data/" />
+  </ItemGroup>
+
 </Project>

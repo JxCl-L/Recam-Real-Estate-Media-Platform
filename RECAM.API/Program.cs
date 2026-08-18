@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using RECAM.API.Middlewares;
+using RECAM.DataAccess.Data;
 
 // BUILDER CONFIG
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +10,8 @@ builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer(); // 让 Swagger 能扫到 endpoint
 builder.Services.AddSwaggerGen(); // 注册 Swagger Generator 生成器
+
+builder.Services.AddDbContext<RECAMDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // BUILDER => APP
 
