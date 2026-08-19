@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using RECAM.API.Middlewares;
+using RECAM.DataAccess.Configurations;
 using RECAM.DataAccess.Data;
+using RECAM.Repository.Interfaces;
+using RECAM.Repository.Repositories;
 
 // BUILDER CONFIG
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +14,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer(); // 让 Swagger 能扫到 endpoint
 builder.Services.AddSwaggerGen(); // 注册 Swagger Generator 生成器
 
+// add dbcontext for sql server
 builder.Services.AddDbContext<RECAMDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+// add dbcontext for mongodb
+builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDbSettings"));
+builder.Services.AddSingleton<MongoDbContext>();
+
+// DI register for repo interface and concrete class
+builder.Services.AddScoped<IUserActivityLogRepository, UserActivityLogRepository>();
+builder.Services.AddScoped<ICaseHistoryRepository, CaseHistoryRepository>();
 
 // BUILDER => APP
 

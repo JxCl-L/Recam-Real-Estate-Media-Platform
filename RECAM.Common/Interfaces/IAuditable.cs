@@ -1,5 +1,3 @@
-using System;
-
 namespace RECAM.Common.Interfaces;
 
 public interface IAuditable

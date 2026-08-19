@@ -1,5 +1,3 @@
-using System;
-
 namespace RECAM.Common.Exceptions;
 
 public class BadRequestException : AppException
