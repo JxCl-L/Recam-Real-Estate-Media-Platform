@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using RECAM.Common.Interfaces;
 using RECAM.Models.Entities;
 
 namespace RECAM.DataAccess.Data;
@@ -36,6 +37,32 @@ public class RECAMDbContext : IdentityDbContext<ApplicationUser>
         builder.Entity<MediaAsset>().HasQueryFilter(m => !m.IsDeleted);
         builder.Entity<ApplicationUser>().HasQueryFilter(u => !u.IsDeleted);
     }
+
+    private void ApplyAuditTimestamps()
+    {
+        var now = DateTime.UtcNow;
+
+        foreach(var entry in ChangeTracker.Entries<IAuditable>())
+        {
+            if(entry.State == EntityState.Added)
+            {
+                entry.Entity.CreatedAt = now;
+            }
+        }
+    }
+    public override int SaveChanges()
+    {
+        ApplyAuditTimestamps();
+        return base.SaveChanges();
+    }
+
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        ApplyAuditTimestamps();
+        return base.SaveChangesAsync(cancellationToken);
+    }
+
+
 
 
 
