@@ -1,10 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using RECAM.Common.Interfaces;
 using RECAM.Models.Enums;
 
 namespace RECAM.Models.Entities;
 
-public class ListingCase
+public class ListingCase : IAuditable
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
