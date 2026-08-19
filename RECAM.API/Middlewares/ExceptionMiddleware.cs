@@ -1,4 +1,3 @@
-using System;
 using RECAM.Common.Exceptions;
 using RECAM.Common.Responses;
 using System.Text.Json;

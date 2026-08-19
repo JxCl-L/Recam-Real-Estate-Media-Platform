@@ -12,4 +12,9 @@
     <ProjectReference Include="../RECAM.Models/RECAM.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Interfaces/" />
+    <Folder Include="Repositories/" />
+  </ItemGroup>
+
 </Project>
