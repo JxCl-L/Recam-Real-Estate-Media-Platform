@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RECAM.Common.Interfaces;
@@ -46,6 +47,27 @@ public class RECAMDbContext : IdentityDbContext<ApplicationUser>
         builder.Entity<PhotographyCompany>().HasQueryFilter(p => !p.User.IsDeleted);
 
         builder.Entity<CaseContact>().HasQueryFilter(c => !c.ListingCase.IsDeleted);
+
+
+        // add seed data for identity roles: user => agent/company
+        const string PhotagraphyCompanyRoleId = "role-photographyCompany-static-id";
+        const string UserRoleId = "role-user-static-id";
+        builder.Entity<IdentityRole>().HasData(
+            new IdentityRole // photography company'role => photographyCompany (Admin)
+            {
+                Id = PhotagraphyCompanyRoleId, // id use static string not "1"/"2" => avoid GUILD coflicts
+                Name = "photographyCompany",
+                NormalizedName = "PHOTOGRAPHYCOMPANY",
+                ConcurrencyStamp = "static-concur-photocompany"
+            },
+            new IdentityRole // agent's role => user
+            {
+                Id = UserRoleId,
+                Name = "user",
+                NormalizedName = "USER",
+                ConcurrencyStamp = "static-concur-user"
+            }
+        );
     }
 
     private void ApplyAuditTimestamps()

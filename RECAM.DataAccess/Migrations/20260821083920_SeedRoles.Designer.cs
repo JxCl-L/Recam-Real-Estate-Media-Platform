@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RECAM.DataAccess.Data;
 
@@ -11,9 +12,11 @@ using RECAM.DataAccess.Data;
 namespace RECAM.DataAccess.Migrations
 {
     [DbContext(typeof(RECAMDbContext))]
-    partial class RECAMDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260821083920_SeedRoles")]
+    partial class SeedRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,7 +72,7 @@ namespace RECAM.DataAccess.Migrations
                             Id = "role-photographyCompany-static-id",
                             ConcurrencyStamp = "static-concur-photocompany",
                             Name = "photographyCompany",
-                            NormalizedName = "PHOTOGRAPHYCOMPANY"
+                            NormalizedName = "PHOTAGRAPHYCOMPANY"
                         },
                         new
                         {
